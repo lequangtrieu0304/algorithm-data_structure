@@ -46,6 +46,36 @@ function mySet() {
         });
         return unionSet;
     }
+
+    // the method will return the intersection of two sets as a new set
+    this.intersection = function(otherSet) {
+        var intersectionSet = new mySet();
+        var firstSet = this.values();
+        firstSet.forEach(function(e) {
+            if(otherSet.has(e)){
+                intersectionSet.add(e);
+            }
+        });
+        return intersectionSet;
+    }
+
+    this.difference = function(otherSet) {
+        var differenceSet = new mySet();
+        var firstSet = this.values();
+        firstSet.forEach(function(e) {
+            if(!otherSet.has(e)){
+                differenceSet.add(e);
+            }
+        });
+        return differenceSet;
+    }
+
+    this.subset = function(otherSet) {
+        var firstSet = this.values();
+        return firstSet.every(function(e) {
+            return otherSet.has(e);
+        })
+    }
 }
 
 var set = new mySet();
@@ -61,7 +91,11 @@ set2.add(6);
 set2.add(5);
 set2.add(4);
 set2.add(3);
+set2.add(2);
 
 console.log(set.values());
 console.log(set2.values());
 console.log(set.union(set2).values());
+console.log(set.intersection(set2).values());
+console.log(set2.difference(set).values());
+console.log(set.subset(set2));
